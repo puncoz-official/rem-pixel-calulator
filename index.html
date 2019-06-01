@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>rem/px Calculator</title>
+</head>
+
+<body>
+    <main>
+        <div>
+            <input type="number" placeholder="Base pixel size (eg: 16px)" id="base-px"> px
+        </div>
+
+        <div>
+            <input type="number" placeholder="rem (eg: 2rem)" id="rem-value"> rem =
+            <input type="number" placeholder="px (eg: 32px)" id="px-value"> px
+        </div>
+    </main>
+
+    <script>
+        const baseElem = document.getElementById("base-px")
+        const remElem = document.getElementById("rem-value")
+        const pxElem = document.getElementById("px-value")
+
+        const calculate = (type) => {
+            const basePX = baseElem.value
+            let remValue = remElem.value
+            let pxValue = pxElem.value
+
+            console.log("hello")
+
+            if (!basePX) {
+                return;
+            }
+
+            if (type === "px") {
+                if (!pxValue) {
+                    return;
+                }
+
+                remValue = (1 / basePX) * pxValue
+
+                remElem.value = remValue
+            }
+
+            if (type === "rem") {
+                if (!remValue) {
+                    return;
+                }
+
+                pxValue = basePX * remValue
+
+                pxElem.value = pxValue
+            }
+        }
+
+        const calculateRem = () => {
+            calculate('rem')
+        }
+
+        const calculatePx = () => {
+            calculate('px')
+        }
+
+        remElem.addEventListener("keyup", calculateRem)
+        pxElem.addEventListener("keyup", calculatePx)
+    </script>
+</body>
+
+</html>
