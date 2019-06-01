@@ -25,44 +25,26 @@
         const remElem = document.getElementById("rem-value")
         const pxElem = document.getElementById("px-value")
 
-        const calculate = (type) => {
-            const basePX = baseElem.value
-            let remValue = remElem.value
-            let pxValue = pxElem.value
-
-            console.log("hello")
-
-            if (!basePX) {
-                return;
-            }
-
-            if (type === "px") {
-                if (!pxValue) {
-                    return;
-                }
-
-                remValue = (1 / basePX) * pxValue
-
-                remElem.value = remValue
-            }
-
-            if (type === "rem") {
-                if (!remValue) {
-                    return;
-                }
-
-                pxValue = basePX * remValue
-
-                pxElem.value = pxValue
-            }
-        }
-
         const calculateRem = () => {
-            calculate('rem')
+            const basePX = baseElem.value
+            const remValue = remElem.value
+
+            if (!basePX || !remValue) {
+                throw new Error("base px or rem value not set.");
+            }
+
+            pxElem.value = basePX * remValue
         }
 
         const calculatePx = () => {
-            calculate('px')
+            const basePX = baseElem.value
+            const pxValue = pxElem.value
+
+            if (!basePX || !pxValue) {
+                throw new Error("base px or px value not set.");
+            }
+
+            remElem.value = (1 / basePX) * pxValue
         }
 
         remElem.addEventListener("keyup", calculateRem)
