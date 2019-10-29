@@ -61,6 +61,7 @@
                 remElem.value = (1 / basePX) * pxValue
             }
 
+            baseElem.addEventListener("keyup", calculateRem)
             remElem.addEventListener("keyup", calculateRem)
             pxElem.addEventListener("keyup", calculatePx)
         </script>
