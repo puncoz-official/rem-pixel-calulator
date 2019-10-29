@@ -1,55 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>rem/px Calculator</title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>rem/px Calculator</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
 
-<body>
-    <main>
-        <div>
-            <input type="number" placeholder="Base pixel size (eg: 16px)" id="base-px"> px
-        </div>
+    <body>
+        <main>
+            <div class="container">
+                <div class="fields">
+                    <div class="field-group">
+                        <input type="number" placeholder="Base pixel size (eg: 16px)" id="base-px">
+                        <span>px</span>
+                    </div>
+                </div>
+                <div class="fields">
+                    <div class="inline-group">
+                        <div class="field-group">
+                            <input class="rem" type="number" placeholder="rem (eg: 2rem)" id="rem-value">
+                            <span>rem</span>
+                        </div>
+                        <span class="equal">=</span>
+                        <div class="field-group">
+                            <input type="number" placeholder="px (eg: 32px)" id="px-value">
+                            <span>px</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
 
-        <div>
-            <input type="number" placeholder="rem (eg: 2rem)" id="rem-value"> rem =
-            <input type="number" placeholder="px (eg: 32px)" id="px-value"> px
-        </div>
-    </main>
+        <script>
+            const baseElem = document.getElementById("base-px")
+            const remElem = document.getElementById("rem-value")
+            const pxElem = document.getElementById("px-value")
 
-    <script>
-        const baseElem = document.getElementById("base-px")
-        const remElem = document.getElementById("rem-value")
-        const pxElem = document.getElementById("px-value")
+            const calculateRem = () => {
+                const basePX = baseElem.value
+                const remValue = remElem.value
 
-        const calculateRem = () => {
-            const basePX = baseElem.value
-            const remValue = remElem.value
+                if (!basePX || !remValue) {
+                    throw new Error("base px or rem value not set.");
+                }
 
-            if (!basePX || !remValue) {
-                throw new Error("base px or rem value not set.");
+                pxElem.value = basePX * remValue
             }
 
-            pxElem.value = basePX * remValue
-        }
+            const calculatePx = () => {
+                const basePX = baseElem.value
+                const pxValue = pxElem.value
 
-        const calculatePx = () => {
-            const basePX = baseElem.value
-            const pxValue = pxElem.value
+                if (!basePX || !pxValue) {
+                    throw new Error("base px or px value not set.");
+                }
 
-            if (!basePX || !pxValue) {
-                throw new Error("base px or px value not set.");
+                remElem.value = (1 / basePX) * pxValue
             }
 
-            remElem.value = (1 / basePX) * pxValue
-        }
-
-        remElem.addEventListener("keyup", calculateRem)
-        pxElem.addEventListener("keyup", calculatePx)
-    </script>
-</body>
+            remElem.addEventListener("keyup", calculateRem)
+            pxElem.addEventListener("keyup", calculatePx)
+        </script>
+    </body>
 
 </html>
